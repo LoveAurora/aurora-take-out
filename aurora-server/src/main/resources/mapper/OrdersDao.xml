@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.aurora.mapper.OrdersMapper">
+
+    <resultMap type="org.aurora.entity.Orders" id="OrdersMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="number" column="number" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="addressBookId" column="address_book_id" jdbcType="INTEGER"/>
+        <result property="orderTime" column="order_time" jdbcType="TIMESTAMP"/>
+        <result property="checkoutTime" column="checkout_time" jdbcType="TIMESTAMP"/>
+        <result property="payMethod" column="pay_method" jdbcType="INTEGER"/>
+        <result property="payStatus" column="pay_status" jdbcType="INTEGER"/>
+        <result property="amount" column="amount" jdbcType="NUMERIC"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="consignee" column="consignee" jdbcType="VARCHAR"/>
+        <result property="cancelReason" column="cancel_reason" jdbcType="VARCHAR"/>
+        <result property="rejectionReason" column="rejection_reason" jdbcType="VARCHAR"/>
+        <result property="cancelTime" column="cancel_time" jdbcType="TIMESTAMP"/>
+        <result property="estimatedDeliveryTime" column="estimated_delivery_time" jdbcType="TIMESTAMP"/>
+        <result property="deliveryStatus" column="delivery_status" jdbcType="INTEGER"/>
+        <result property="deliveryTime" column="delivery_time" jdbcType="TIMESTAMP"/>
+        <result property="packAmount" column="pack_amount" jdbcType="INTEGER"/>
+        <result property="tablewareNumber" column="tableware_number" jdbcType="INTEGER"/>
+        <result property="tablewareStatus" column="tableware_status" jdbcType="INTEGER"/>
+    </resultMap>
+
+</mapper>
+

@@ -1,0 +1,8 @@
+aurora:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: 192.168.32.14
+    port: 3306
+    database: aurora_take_out
+    username: root
+    password: root
