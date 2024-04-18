@@ -1,4 +1,4 @@
-package org.aurora.controller;
+package org.aurora.controller.user;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;

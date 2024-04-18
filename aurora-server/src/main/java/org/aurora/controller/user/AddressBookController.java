@@ -1,4 +1,4 @@
-package org.aurora.controller;
+package org.aurora.controller.user;
 
 import org.springframework.web.bind.annotation.*;
 

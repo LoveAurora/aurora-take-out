@@ -3,6 +3,7 @@ package org.aurora.interceptor;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.constant.JwtClaimsConstant;
+import org.aurora.context.BaseContext;
 import org.aurora.properties.JwtProperties;
 import org.aurora.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getAdminSecretKey(), token);
             Long empId = Long.valueOf(claims.get(JwtClaimsConstant.EMP_ID).toString());
             log.info("当前员工id：", empId);
+            BaseContext.setCurrentId(empId);
             //3、通过，放行
             return true;
         } catch (Exception ex) {

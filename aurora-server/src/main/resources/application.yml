@@ -21,10 +21,26 @@ mybatis:
     #开启驼峰命名
     map-underscore-to-camel-case: true
 
+mybatis-plus:
+  configuration:
+    # 日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      # 逻辑删除的字段
+#      logic-delete-field:
+      # 代表已删除的值
+#      logic-delete-value: 1
+      # 代表未删除的值
+#      logic-not-delete-value: 0
+      # 主键自增策略，以mysql数据库为准
+      id-type: auto
+
+
 logging:
   level:
-    com:
-      sky:
+    org:
+      aurora:
         mapper: debug
         service: info
         controller: info

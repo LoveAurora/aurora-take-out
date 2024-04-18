@@ -1,4 +1,4 @@
-package org.aurora.controller;
+package org.aurora.controller.admin;
 
 
 
