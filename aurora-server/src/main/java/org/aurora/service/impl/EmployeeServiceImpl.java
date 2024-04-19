@@ -15,8 +15,8 @@ import org.aurora.exception.PasswordErrorException;
 import org.aurora.mapper.EmployeeMapper;
 import org.aurora.result.PageResult;
 import org.aurora.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * 员工信息(Employee)表服务实现类
@@ -27,8 +27,7 @@ import org.springframework.stereotype.Service;
 @Service("employeeService")
 public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
 
-    @Autowired
-    private EmployeeMapper employeeMapper;
+
 
     /**
      * 员工登录
@@ -108,7 +107,8 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
-        Page page = new Page();
+        queryWrapper.eq(StringUtils.hasText(employeePageQueryDTO.getName()), Employee::getName, employeePageQueryDTO.getName());
+        Page<Employee> page = new Page<>();
         page.setSize(employeePageQueryDTO.getPageSize());
         page.setCurrent(employeePageQueryDTO.getPage());
         page(page, queryWrapper);

@@ -32,6 +32,7 @@ public class Employee implements Serializable {
 
     private String idNumber;
 
+    @TableField(fill = FieldFill.INSERT)
     private Integer status;
 
     //创建时间

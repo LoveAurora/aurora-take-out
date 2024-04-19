@@ -2,6 +2,7 @@ package org.aurora.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
+import org.aurora.constant.StatusConstant;
 import org.aurora.context.BaseContext;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         this.setFieldValByName("createUser", userId, metaObject);
         this.setFieldValByName("updateTime", LocalDateTime.now(), metaObject);
         this.setFieldValByName("updateUser", userId, metaObject);
+        this.setFieldValByName("status", StatusConstant.ENABLE, metaObject);
     }
 
     @Override

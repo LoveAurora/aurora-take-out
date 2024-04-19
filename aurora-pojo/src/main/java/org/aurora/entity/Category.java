@@ -30,6 +30,7 @@ public class Category implements Serializable {
     private Integer sort;
 
     //分类状态 0标识禁用 1表示启用
+    @TableField(fill = FieldFill.INSERT)
     private Integer status;
 
     //创建时间

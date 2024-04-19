@@ -1,5 +1,6 @@
 package org.aurora.controller.admin;
 
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.constant.JwtClaimsConstant;
 import org.aurora.constant.PasswordConstant;
@@ -43,6 +44,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/login")
+    @ApiOperation("员工登录")
     public Result<EmployeeLoginVO> login(@RequestBody EmployeeLoginDTO employeeLoginDTO) {
         log.info("员工登录：{}", employeeLoginDTO);
         Employee employee = employeeService.login(employeeLoginDTO);
@@ -81,6 +83,7 @@ public class EmployeeController {
      * @return
      */
     @PutMapping("/editPassword")
+    @ApiOperation("修改密码")
     public Result<String> editPassword(@RequestBody PasswordEditDTO passwordEditDTO) {
         log.info("修改密码：{}", passwordEditDTO);
         employeeService.editPassword(passwordEditDTO);
@@ -94,6 +97,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/status/{status}")
+    @ApiOperation("修改状态")
     public Result<String> updateStatus(@PathVariable("status") Integer status) {
         log.info("修改状态：{}", status);
         employeeService.updateStatus(status);
@@ -107,6 +111,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/page")
+    @ApiOperation("分页查询")
     public Result<PageResult> pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         log.info("分页查询：{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
@@ -114,6 +119,7 @@ public class EmployeeController {
     }
 
     @PostMapping()
+    @ApiOperation("添加员工")
     public Result<String> addEmployee(@RequestBody Employee employee) {
         log.info("添加员工：{}", employee);
         employee.setPassword(PasswordConstant.DEFAULT_PASSWORD);
@@ -128,6 +134,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/{id}")
+    @ApiOperation("查询员工")
     public Result<Employee> getEmployee(@PathVariable("id") Long id) {
         log.info("查询员工：{}", id);
         Employee employee = employeeService.getById(id);
@@ -144,6 +151,7 @@ public class EmployeeController {
      * @return
      */
     @PutMapping()
+    @ApiOperation("修改员工")
     public Result<String> updateEmployee(@RequestBody EmployeeDTO employeeDTO) {
         log.info("修改员工：{}", employeeDTO);
         Employee employee = BeanCopyUtils.copyBean(employeeDTO, Employee.class);

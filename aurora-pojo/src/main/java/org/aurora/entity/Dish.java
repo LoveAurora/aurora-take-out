@@ -1,9 +1,11 @@
 package org.aurora.entity;
 
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -15,10 +17,11 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("dish")
 public class Dish implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     //菜品名称
@@ -37,14 +40,23 @@ public class Dish implements Serializable {
     private String description;
 
     //0 停售 1 起售
+    @TableField(fill = FieldFill.INSERT)
     private Integer status;
 
+    //创建时间
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    //更新时间
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
+    //创建人
+    @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
+    //修改人
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
 }
