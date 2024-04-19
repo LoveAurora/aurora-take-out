@@ -6,6 +6,8 @@ import org.aurora.dto.SetmealPageQueryDTO;
 import org.aurora.entity.Setmeal;
 import org.aurora.result.PageResult;
 
+import java.util.List;
+
 /**
  * 套餐(Setmeal)表服务接口
  *
@@ -19,5 +21,10 @@ public interface SetmealService extends IService<Setmeal> {
     void updateMeal(SetmealDTO setmealDTO);
 
     void addMeal(SetmealDTO setmealDTO);
+
+
+    SetmealDTO getDishById(Long id);
+
+    void deleteMeals(List<Long> ids);
 }
 

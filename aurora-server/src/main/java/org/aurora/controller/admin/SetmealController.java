@@ -1,12 +1,16 @@
 package org.aurora.controller.admin;
 
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.dto.SetmealDTO;
 import org.aurora.dto.SetmealPageQueryDTO;
+import org.aurora.entity.Dish;
+import org.aurora.entity.Setmeal;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
+import org.aurora.service.SetmealDishService;
 import org.aurora.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +32,6 @@ public class SetmealController {
     private SetmealService setmealService;
 
 
-
     @GetMapping("/page")
     @ApiOperation("分页查询套餐")
     public Result<PageResult> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
@@ -36,6 +39,7 @@ public class SetmealController {
         PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
         return Result.success(pageResult);
     }
+
     @PutMapping
     @ApiOperation("修改套餐")
     public Result<String> updateMeal(@RequestBody SetmealDTO setmealDTO) {
@@ -52,5 +56,36 @@ public class SetmealController {
         setmealService.addMeal(setmealDTO);
         return Result.success();
     }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("修改套餐状态")
+    public Result<String> updateStatus(@PathVariable Integer status, Long id) {
+        log.info("修改套餐状态:{},{}", status, id);
+        boolean update = setmealService.update(new LambdaUpdateWrapper<Setmeal>()
+                .eq(Setmeal::getId, id)
+                .set(Setmeal::getStatus, status));
+        if (!update) {
+            return Result.error("修改菜品状态失败");
+        }
+        return Result.success();
+    }
+
+    @DeleteMapping
+    @ApiOperation("批量删除套餐")
+    public Result<String> deleteMeals(@RequestParam List<Long> ids) {
+        log.info("批量删除套餐，参数：{}", ids);
+        setmealService.deleteMeals(ids);
+        setmealService.removeByIds(ids);
+        return Result.success("");
+    }
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询套餐")
+    public Result<SetmealDTO> getById(@PathVariable Long id) {
+        log.info("根据id查询套餐，参数：{}", id);
+        SetmealDTO setmealDTO = setmealService.getDishById(id);
+        return Result.success(setmealDTO);
+    }
+
 }
 

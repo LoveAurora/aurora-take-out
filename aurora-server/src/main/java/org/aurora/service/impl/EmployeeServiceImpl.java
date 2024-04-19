@@ -107,7 +107,7 @@ public class EmployeeServiceImpl extends ServiceImpl<EmployeeMapper, Employee> i
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(StringUtils.hasText(employeePageQueryDTO.getName()), Employee::getName, employeePageQueryDTO.getName());
+        queryWrapper.like(StringUtils.hasText(employeePageQueryDTO.getName()), Employee::getName, employeePageQueryDTO.getName());
         Page<Employee> page = new Page<>();
         page.setSize(employeePageQueryDTO.getPageSize());
         page.setCurrent(employeePageQueryDTO.getPage());
