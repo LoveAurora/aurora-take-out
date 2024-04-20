@@ -118,6 +118,13 @@ public class EmployeeController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 添加员工
+     *
+     * @param employee
+     * @return
+     */
+
     @PostMapping()
     @ApiOperation("添加员工")
     public Result<String> addEmployee(@RequestBody Employee employee) {

@@ -10,4 +10,5 @@ import org.aurora.entity.User;
  * @since 2024-04-17 17:37:51
  */
 public interface UserMapper extends BaseMapper<User> {
+
 }

@@ -53,7 +53,31 @@ aurora:
     admin-ttl: 7200000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
+    # 设置jwt签名加密时使用的秘钥
+    user-secret-key: itheima
+    # 设置jwt过期时间
+    user-ttl: 7200000
+    # 设置前端传递过来的令牌名称
+    user-token-name: authentication
+  wechat:
+    appid: ${aurora.wechat.appid}
+    secret: ${aurora.wechat.secret}
+    mchid : ${aurora.wechat.mchid}
+    mchSerialNo: ${aurora.wechat.mchSerialNo}
+    privateKeyFilePath: ${aurora.wechat.privateKeyFilePath}
+    apiV3Key: ${aurora.wechat.apiV3Key}
+    weChatPayCertFilePath: ${aurora.wechat.weChatPayCertFilePath}
+    notifyUrl: ${aurora.wechat.notifyUrl}
+    refundNotifyUrl: ${aurora.wechat.refundNotifyUrl}
+    shop:
+      address: 北京市海淀区上地十街10号
+    baidu:
+      ak: your-ak
+
+
+
 oss:
   accessKey: oBc9bSk6oIDNUJPWXJWZLpFrdRR08u1M-1CZjWgI
   secretKey: F1qJazVNCijj6RypL7G0Vu2SnOStpUHz_d-PDhUw
   bucket: loong-blog
+

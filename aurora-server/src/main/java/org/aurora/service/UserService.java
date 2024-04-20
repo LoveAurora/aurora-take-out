@@ -1,6 +1,7 @@
 package org.aurora.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.aurora.dto.UserLoginDTO;
 import org.aurora.entity.User;
 
 /**
@@ -11,5 +12,6 @@ import org.aurora.entity.User;
  */
 public interface UserService extends IService<User> {
 
+    User wxLogin(UserLoginDTO userLoginDTO);
 }
 

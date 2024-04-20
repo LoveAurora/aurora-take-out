@@ -31,6 +31,12 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
+    /**
+     * 新增菜品
+     *
+     * @param dishDTO
+     * @return
+     */
     @PostMapping
     @ApiOperation("新增菜品")
     public Result<String> addDish(@RequestBody DishDTO dishDTO) {
@@ -39,6 +45,12 @@ public class DishController {
         return Result.success("新增菜品成功");
     }
 
+    /**
+     * 分页查询菜品
+     *
+     * @param dishPageQueryDTO
+     * @return
+     */
     @GetMapping("/page")
     @ApiOperation("分页查询菜品")
     public Result<PageResult> pageQuery(DishPageQueryDTO dishPageQueryDTO) {
@@ -47,6 +59,12 @@ public class DishController {
         return Result.success(pageResult);
     }
 
+    /**
+     * 批量删除菜品
+     *
+     * @param ids
+     * @return
+     */
     @DeleteMapping()
     @ApiOperation("批量删除菜品")
     public Result<String> deleteDish(@RequestParam List<Long> ids) {
@@ -55,6 +73,12 @@ public class DishController {
         return Result.success("批量删除菜品成功");
     }
 
+    /**
+     * 根据id查询菜品
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询菜品")
     public Result<DishDTO> getById(@PathVariable Long id) {
@@ -63,6 +87,12 @@ public class DishController {
         return Result.success(dishDTO);
     }
 
+    /**
+     * 修改菜品
+     *
+     * @param dishDTO
+     * @return
+     */
     @PutMapping
     @ApiOperation("修改菜品")
     public Result<String> updateDish(@RequestBody DishDTO dishDTO) {
@@ -71,28 +101,35 @@ public class DishController {
         return Result.success();
     }
 
+    /**
+     * 根据分类id查询菜品
+     *
+     * @param categoryId
+     * @return
+     */
+
     @GetMapping("/list")
     @ApiOperation("根据分类id查询菜品")
     public Result<List<Dish>> getByCategoryId(Long categoryId) {
         log.info("根据分类id查询菜品:{}", categoryId);
-//        List<DishDTO> dishDTOList = dishService.getByCategoryId(categoryId);
-//        return Result.success(dishDTOList);
         LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Dish::getCategoryId, categoryId);
         List<Dish> dishList = dishService.list(queryWrapper);
         return Result.success(dishList);
     }
 
+    /**
+     * 修改菜品状态
+     *
+     * @param status
+     * @param id
+     * @return
+     */
     @PostMapping("/status/{status}")
     @ApiOperation("修改菜品状态")
     public Result<String> updateStatus(@PathVariable("status") Integer status, Long id) {
         log.info("修改菜品状态:{},{}", status, id);
-        boolean update = dishService.update(new LambdaUpdateWrapper<Dish>()
-                .eq(Dish::getId, id)
-                .set(Dish::getStatus, status));
-        if (!update) {
-            return Result.error("修改菜品状态失败");
-        }
+       dishService.updateStatus(status, id);
         return Result.success();
     }
 }

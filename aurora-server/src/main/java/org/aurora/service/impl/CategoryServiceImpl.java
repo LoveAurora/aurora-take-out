@@ -9,6 +9,7 @@ import org.aurora.dto.CategoryDTO;
 import org.aurora.dto.CategoryPageQueryDTO;
 import org.aurora.entity.Category;
 import org.aurora.entity.Dish;
+import org.aurora.entity.Setmeal;
 import org.aurora.exception.BaseException;
 import org.aurora.exception.DeletionNotAllowedException;
 import org.aurora.mapper.CategoryMapper;
@@ -32,6 +33,9 @@ import java.util.List;
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Autowired
     private DishService dishService;
+    @Autowired
+    private SetmealServiceImpl setmealService;
+
     // 添加分类
     @Override
     public void addCategory(CategoryDTO categoryDTO) {
@@ -107,10 +111,31 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         LambdaQueryWrapper<Dish> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Dish::getCategoryId, id);
         List<Dish> list = dishService.list(queryWrapper);
+
+        LambdaQueryWrapper<Setmeal> setmealQueryWrapper = new LambdaQueryWrapper<>();
+        setmealQueryWrapper.eq(Setmeal::getCategoryId, id);
+        List<Setmeal> setmealList = setmealService.list(setmealQueryWrapper);
         if (list != null && !list.isEmpty()) {
             throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
-        }else {
+        } else if (setmealList != null && !setmealList.isEmpty()) {
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
+        } else {
             removeById(id);
         }
+    }
+
+    @Override
+    public List<Category> listCategory(Integer type) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+
+        if (type == null) {
+            queryWrapper.eq(Category::getStatus, StatusConstant.ENABLE)
+                    .orderByAsc(Category::getSort)
+                    .orderByDesc(Category::getCreateTime);
+            return list(queryWrapper);
+        } else {
+            queryWrapper.eq(Category::getType, type);
+        }
+        return list(queryWrapper);
     }
 }

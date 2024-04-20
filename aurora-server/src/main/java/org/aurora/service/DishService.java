@@ -5,6 +5,7 @@ import org.aurora.dto.DishDTO;
 import org.aurora.dto.DishPageQueryDTO;
 import org.aurora.entity.Dish;
 import org.aurora.result.PageResult;
+import org.aurora.vo.DishVO;
 
 import java.util.List;
 
@@ -27,6 +28,9 @@ public interface DishService extends IService<Dish> {
 
     void updateDish(DishDTO dishDTO);
 
-    List<DishDTO> getByCategoryId(Long categoryId);
+
+    List<DishVO> listbyCategoryId(Long categoryId);
+
+    void updateStatus(Integer status, Long id);
 }
 

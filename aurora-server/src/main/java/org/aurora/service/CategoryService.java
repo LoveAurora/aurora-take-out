@@ -27,5 +27,7 @@ public interface CategoryService extends IService<Category> {
     void updateCategory(CategoryDTO categoryDTO);
 
     void removeCategory(Long id);
+
+    List<Category> listCategory(Integer type);
 }
 

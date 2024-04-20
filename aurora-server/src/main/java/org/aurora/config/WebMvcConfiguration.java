@@ -2,6 +2,7 @@ package org.aurora.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.interceptor.JwtTokenAdminInterceptor;
+import org.aurora.interceptor.JwtTokenUserInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,8 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
 
     @Autowired
     private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
+    @Autowired
+    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
 
     /**
      * 注册自定义拦截器
@@ -35,6 +38,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/employee/login");
+        registry.addInterceptor(jwtTokenUserInterceptor)
+                .addPathPatterns("/user/**")
+                .excludePathPatterns("/user/user/login");
     }
 
     /**
