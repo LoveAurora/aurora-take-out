@@ -373,7 +373,13 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
         webSocketServer.sendToAllClient(JSON.toJSONString(map));
     }
 
-
+    /**
+     * 根据状态和下单时间查询订单
+     *
+     * @param deliveryInProgress
+     * @param time
+     * @return
+     */
     @Override
     public List<Orders> getByStatusAndOrderTimeLT(Integer deliveryInProgress, LocalDateTime time) {
         LambdaQueryWrapper<Orders> queryWrapper = new LambdaQueryWrapper<>();
