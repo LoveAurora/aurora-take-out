@@ -12,6 +12,7 @@ import org.aurora.entity.Dish;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.DishService;
+import org.aurora.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,9 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
+    @Autowired
+    private RedisCache redisCache;
+
     /**
      * 新增菜品
      *
@@ -42,6 +46,7 @@ public class DishController {
     public Result<String> addDish(@RequestBody DishDTO dishDTO) {
         log.info("新增菜品:{}", dishDTO);
         dishService.addDish(dishDTO);
+        redisCache.deleteObject("dish_*");
         return Result.success("新增菜品成功");
     }
 
@@ -70,6 +75,8 @@ public class DishController {
     public Result<String> deleteDish(@RequestParam List<Long> ids) {
         log.info("批量删除菜品:{}", ids);
         dishService.deleteDish(ids);
+
+        redisCache.deleteObject("dish_*");
         return Result.success("批量删除菜品成功");
     }
 
@@ -98,6 +105,7 @@ public class DishController {
     public Result<String> updateDish(@RequestBody DishDTO dishDTO) {
         log.info("修改菜品:{}", dishDTO);
         dishService.updateDish(dishDTO);
+        redisCache.deleteObject("dish_*");
         return Result.success();
     }
 
@@ -129,7 +137,8 @@ public class DishController {
     @ApiOperation("修改菜品状态")
     public Result<String> updateStatus(@PathVariable("status") Integer status, Long id) {
         log.info("修改菜品状态:{},{}", status, id);
-       dishService.updateStatus(status, id);
+        dishService.updateStatus(status, id);
+        redisCache.deleteObject("dish_*");
         return Result.success();
     }
 }

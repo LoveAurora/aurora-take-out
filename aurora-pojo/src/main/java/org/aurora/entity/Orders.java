@@ -1,4 +1,9 @@
 package org.aurora.entity;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +20,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
+@TableName("orders")
 public class Orders implements Serializable {
 
     /**
@@ -36,7 +41,7 @@ public class Orders implements Serializable {
     public static final Integer REFUND = 2;
 
     private static final long serialVersionUID = 1L;
-
+    @TableId(type = IdType.AUTO)
     private Long id;
 
     //订单号
@@ -48,7 +53,7 @@ public class Orders implements Serializable {
     //下单用户id
     private Long userId;
 
-    //地址id
+    //地址簿id
     private Long addressBookId;
 
     //下单时间

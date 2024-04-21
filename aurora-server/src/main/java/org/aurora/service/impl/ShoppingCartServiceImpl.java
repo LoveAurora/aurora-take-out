@@ -118,5 +118,13 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, Sho
         }
         return null;
     }
+
+    @Override
+    public void cleanShopCart() {
+        Long userId = BaseContext.getCurrentId();
+        LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(ShoppingCart::getUserId, userId);
+        remove(queryWrapper);
+    }
 }
 

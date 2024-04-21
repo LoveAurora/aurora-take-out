@@ -1,5 +1,6 @@
 package org.aurora.dto;
 
+import lombok.Builder;
 import lombok.Data;
 import java.io.Serializable;
 

@@ -2,6 +2,7 @@ package org.aurora.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.aurora.constant.MessageConstant;
@@ -18,6 +19,7 @@ import org.aurora.service.DishService;
 import org.aurora.service.SetmealDishService;
 import org.aurora.service.SetmealService;
 import org.aurora.utils.BeanCopyUtils;
+import org.aurora.vo.DishItemVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -132,6 +134,22 @@ public class SetmealServiceImpl extends ServiceImpl<SetmealMapper, Setmeal> impl
             lambdaQueryWrapper.eq(Setmeal::getCategoryId, categoryId);
             lambdaQueryWrapper.eq(Setmeal::getStatus, 1);
             return list(lambdaQueryWrapper);
+        }
+        return null;
+    }
+
+    @Override
+    public List<DishItemVO> getDishItemById(Long id) {
+        if (Objects.nonNull(id)) {
+            LambdaQueryWrapper<SetmealDish> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+            lambdaQueryWrapper.eq(SetmealDish::getSetmealId, id);
+            List<SetmealDish> setmealDishes = setmealDishService.list(lambdaQueryWrapper);
+            if (CollectionUtils.isNotEmpty(setmealDishes)) {
+                List<Long> dishIds = setmealDishes.stream().map(SetmealDish::getDishId).collect(Collectors.toList());
+                List<Dish> dishs = dishService.listByIds(dishIds);
+                List<DishItemVO> dishItemVOS = BeanCopyUtils.copyBeanList(dishs, DishItemVO.class);
+                return dishItemVOS;
+            }
         }
         return null;
     }

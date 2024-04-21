@@ -19,5 +19,7 @@ public interface ShoppingCartService extends IService<ShoppingCart> {
     List<ShoppingCart> shoppingCartlist();
 
     void sub(ShoppingCartDTO shoppingCartDTO);
+
+    void cleanShopCart();
 }
 

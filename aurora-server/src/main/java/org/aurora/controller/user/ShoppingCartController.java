@@ -41,10 +41,7 @@ public class ShoppingCartController {
     @DeleteMapping("/clean")
     public Result<String> clean() {
         log.info("清空购物车");
-        Long userId = BaseContext.getCurrentId();
-        LambdaQueryWrapper<ShoppingCart> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(ShoppingCart::getUserId, userId);
-        shoppingCartService.remove(queryWrapper);
+        shoppingCartService.cleanShopCart();
         return Result.success("清空购物车成功");
     }
     @PostMapping("/sub")

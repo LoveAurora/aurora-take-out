@@ -5,6 +5,7 @@ import org.aurora.dto.SetmealDTO;
 import org.aurora.dto.SetmealPageQueryDTO;
 import org.aurora.entity.Setmeal;
 import org.aurora.result.PageResult;
+import org.aurora.vo.DishItemVO;
 
 import java.util.List;
 
@@ -30,5 +31,7 @@ public interface SetmealService extends IService<Setmeal> {
     List<Setmeal> getSetMealList(Long categoryId);
 
     void updateStatus(Integer status, Long id);
+
+    List<DishItemVO> getDishItemById(Long id);
 }
 
