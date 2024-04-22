@@ -204,7 +204,6 @@ public class ReportServiceImpl implements ReportService {
             endTime = LocalDateTime.of(end, LocalTime.MAX);
         } else {
             beginTime = LocalDateTime.of(begin, LocalTime.MIN);
-            ;
             endTime = LocalDateTime.of(end.plusDays(1), LocalTime.MAX);
         }
 

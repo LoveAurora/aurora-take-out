@@ -19,19 +19,20 @@ import java.util.List;
 @Slf4j
 @Api(tags = "C端-分类接口")
 public class CategoryController {
+    private final CategoryService categoryService;
+
     @Autowired
-    private CategoryService categoryService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     /**
      * 查询分类
-     *
-     * @param type
-     * @return
      */
     @GetMapping("/list")
     @ApiOperation("查询分类")
     public Result<List<Category>> listCategory(Integer type) {
-        log.info("查询分类", type);
+        log.info("查询分类{}", type);
         List<Category> list = categoryService.listCategory(type);
         return Result.success(list);
     }

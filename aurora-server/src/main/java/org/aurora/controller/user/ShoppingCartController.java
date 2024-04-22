@@ -1,14 +1,10 @@
 package org.aurora.controller.user;
 
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.aurora.constant.MessageConstant;
-import org.aurora.context.BaseContext;
 import org.aurora.dto.ShoppingCartDTO;
 import org.aurora.entity.ShoppingCart;
-import org.aurora.entity.User;
 import org.aurora.result.Result;
 import org.aurora.service.ShoppingCartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +17,12 @@ import java.util.List;
 @Slf4j
 @Api(tags = "C端购物车相关接口")
 public class ShoppingCartController {
+    private final ShoppingCartService shoppingCartService;
+
     @Autowired
-    private ShoppingCartService shoppingCartService;
+    public ShoppingCartController(ShoppingCartService shoppingCartService) {
+        this.shoppingCartService = shoppingCartService;
+    }
 
     @GetMapping("/list")
     public Result<List<ShoppingCart>> list() {
@@ -44,6 +44,7 @@ public class ShoppingCartController {
         shoppingCartService.cleanShopCart();
         return Result.success("清空购物车成功");
     }
+
     @PostMapping("/sub")
     public Result<String> sub(@RequestBody ShoppingCartDTO shoppingCartDTO) {
         log.info("购物车减少:{}", shoppingCartDTO);

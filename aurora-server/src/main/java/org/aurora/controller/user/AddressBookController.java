@@ -5,12 +5,10 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
 import org.aurora.context.BaseContext;
 import org.aurora.entity.AddressBook;
 import org.aurora.result.Result;
 import org.aurora.service.AddressBookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,8 +27,12 @@ import java.util.List;
 @Api(tags = "C端-地址簿接口")
 public class AddressBookController {
 
-    @Autowired
-    private AddressBookService addressBookService;
+    private final AddressBookService addressBookService;
+
+    public AddressBookController(AddressBookService addressBookService) {
+        this.addressBookService = addressBookService;
+    }
+
 
     /**
      * 新增地址

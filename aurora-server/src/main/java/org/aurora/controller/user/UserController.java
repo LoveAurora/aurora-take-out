@@ -12,7 +12,6 @@ import org.aurora.result.Result;
 import org.aurora.service.UserService;
 import org.aurora.utils.JwtUtil;
 import org.aurora.vo.UserLoginVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -31,16 +30,16 @@ import java.util.Map;
 @Slf4j
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final UserService userService;
+    private final JwtProperties jwtProperties;
+
+    public UserController(UserService userService, JwtProperties jwtProperties) {
+        this.userService = userService;
+        this.jwtProperties = jwtProperties;
+    }
 
     /**
      * 微信登录
-     *
-     * @param userLoginDTO
-     * @return
      */
     @PostMapping("/login")
     @ApiOperation("微信登录")

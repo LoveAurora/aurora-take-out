@@ -12,11 +12,8 @@ import org.aurora.mapper.ShoppingCartMapper;
 import org.aurora.service.DishService;
 import org.aurora.service.ShoppingCartService;
 import org.aurora.utils.BeanCopyUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StreamUtils;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -29,10 +26,13 @@ import java.util.Objects;
 @Service("shoppingCartService")
 @Slf4j
 public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingCartMapper, ShoppingCart> implements ShoppingCartService {
-    @Autowired
-    private DishService dishService;
-    @Autowired
-    private SetmealServiceImpl setmealService;
+    private final DishService dishService;
+    private final SetmealServiceImpl setmealService;
+
+    public ShoppingCartServiceImpl(DishService dishService, SetmealServiceImpl setmealService) {
+        this.dishService = dishService;
+        this.setmealService = setmealService;
+    }
 
     @Override
     public void addshoppingCart(ShoppingCartDTO shoppingCartDTO) {

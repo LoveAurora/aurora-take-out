@@ -1,22 +1,18 @@
 package org.aurora.controller.admin;
 
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import io.swagger.annotations.ApiOperation;
 import org.aurora.dto.OrdersCancelDTO;
 import org.aurora.dto.OrdersConfirmDTO;
 import org.aurora.dto.OrdersPageQueryDTO;
 import org.aurora.dto.OrdersRejectionDTO;
-import org.aurora.entity.Orders;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.OrdersService;
 import org.aurora.vo.OrderStatisticsVO;
 import org.aurora.vo.OrderVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Objects;
 
 /**
  * 订单表(Orders)表控制层
@@ -27,8 +23,9 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/admin/order/")
 public class OrdersController {
-   //TODO 订单菜品名 和 送达时间 未设置
+    //TODO 订单菜品名 和 送达时间 未设置
     private final OrdersService ordersService;
+
     // 构造器注入
     public OrdersController(OrdersService ordersService) {
         this.ordersService = ordersService;
@@ -36,9 +33,6 @@ public class OrdersController {
 
     /**
      * 订单搜索
-     *
-     * @param ordersPageQueryDTO 订单查询对象
-     * @return
      */
     @GetMapping("/conditionSearch")
     @ApiOperation("订单搜索")
@@ -49,8 +43,6 @@ public class OrdersController {
 
     /**
      * 各个状态的订单数量统计
-     *
-     * @return
      */
     @GetMapping("/statistics")
     @ApiOperation("各个状态的订单数量统计")
@@ -61,9 +53,6 @@ public class OrdersController {
 
     /**
      * 订单详情
-     *
-     * @param id
-     * @return
      */
     @GetMapping("/details/{id}")
     @ApiOperation("查询订单详情")
@@ -74,8 +63,6 @@ public class OrdersController {
 
     /**
      * 接单
-     *
-     * @return
      */
     @PutMapping("/confirm")
     @ApiOperation("接单")
@@ -86,8 +73,6 @@ public class OrdersController {
 
     /**
      * 拒单
-     *
-     * @return
      */
     @PutMapping("/rejection")
     @ApiOperation("拒单")
@@ -98,8 +83,6 @@ public class OrdersController {
 
     /**
      * 取消订单
-     *
-     * @return
      */
     @PutMapping("/cancel")
     @ApiOperation("取消订单")
@@ -110,8 +93,6 @@ public class OrdersController {
 
     /**
      * 派送订单
-     *
-     * @return
      */
     @PutMapping("/delivery/{id}")
     @ApiOperation("派送订单")
@@ -122,8 +103,6 @@ public class OrdersController {
 
     /**
      * 完成订单
-     *
-     * @return
      */
     @PutMapping("/complete/{id}")
     @ApiOperation("完成订单")

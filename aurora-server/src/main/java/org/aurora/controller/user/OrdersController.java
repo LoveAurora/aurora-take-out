@@ -1,22 +1,16 @@
 package org.aurora.controller.user;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.dto.OrdersPaymentDTO;
 import org.aurora.dto.OrdersSubmitDTO;
-import org.aurora.entity.OrderDetail;
-import org.aurora.entity.Orders;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.OrdersService;
-import org.aurora.utils.BeanCopyUtils;
 import org.aurora.vo.OrderPaymentVO;
 import org.aurora.vo.OrderSubmitVO;
 import org.aurora.vo.OrderVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("userOrdersController")
@@ -25,8 +19,11 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class OrdersController {
 
-    @Autowired
-    private OrdersService ordersService;
+    private final OrdersService ordersService;
+
+    public OrdersController(OrdersService ordersService) {
+        this.ordersService = ordersService;
+    }
 
     /**
      * 用户下单
@@ -46,7 +43,7 @@ public class OrdersController {
      */
     @PutMapping("/payment")
     @ApiOperation("订单支付")
-    public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) throws Exception {
+    public Result<OrderPaymentVO> payment(@RequestBody OrdersPaymentDTO ordersPaymentDTO) {
         log.info("订单支付：{}", ordersPaymentDTO);
         OrderPaymentVO orderPaymentVO = ordersService.payment(ordersPaymentDTO);
         log.info("生成预支付交易单：{}", orderPaymentVO);
@@ -72,16 +69,14 @@ public class OrdersController {
      */
     @PutMapping("/cancel/{id}")
     @ApiOperation("取消订单")
-    public Result<String> cancel(@PathVariable("id") Long id) throws Exception {
+    public Result<String> cancel(@PathVariable("id") Long id) {
         log.info("订单id：{}", id);
         ordersService.userCancelById(id);
         return Result.success("取消订单成功");
     }
 
     /**
-     *  再来一单
-     * @param id
-     * @return
+     * 再来一单
      */
     @PostMapping("/repetition/{id}")
     @ApiOperation("再来一单")
@@ -94,9 +89,6 @@ public class OrdersController {
 
     /**
      * 查询订单详情
-     *
-     * @param id
-     * @return
      */
     @GetMapping("/orderDetail/{id}")
     @ApiOperation("查询订单详情")
@@ -105,14 +97,13 @@ public class OrdersController {
         OrderVO orderVO = ordersService.details(id);
         return Result.success(orderVO);
     }
+
     /**
      * 客户催单
-     * @param id
-     * @return
      */
     @GetMapping("/reminder/{id}")
     @ApiOperation("客户催单")
-    public Result reminder(@PathVariable("id") Long id){
+    public Result<String> reminder(@PathVariable("id") Long id) {
         ordersService.reminder(id);
         return Result.success();
     }

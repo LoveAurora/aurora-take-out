@@ -1,15 +1,12 @@
 package org.aurora.controller.admin;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.dto.SetmealDTO;
 import org.aurora.dto.SetmealPageQueryDTO;
-import org.aurora.entity.Setmeal;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.SetmealService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +20,11 @@ import java.util.List;
 public class SetmealController {
 
     // 自动注入SetmealService
-    @Autowired
-    private SetmealService setmealService;
+    private final SetmealService setmealService;
+
+    public SetmealController(SetmealService setmealService) {
+        this.setmealService = setmealService;
+    }
 
     /**
      * 分页查询套餐

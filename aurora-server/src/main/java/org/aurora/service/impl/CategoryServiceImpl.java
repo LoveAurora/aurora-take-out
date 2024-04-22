@@ -18,6 +18,7 @@ import org.aurora.service.CategoryService;
 import org.aurora.service.DishService;
 import org.aurora.utils.BeanCopyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -32,9 +33,12 @@ import java.util.List;
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements CategoryService {
     @Autowired
+    @Lazy
     private DishService dishService;
     @Autowired
+    @Lazy
     private SetmealServiceImpl setmealService;
+
 
     // 添加分类
     @Override

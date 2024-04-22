@@ -12,7 +12,6 @@ import org.aurora.mapper.UserMapper;
 import org.aurora.properties.WeChatProperties;
 import org.aurora.service.UserService;
 import org.aurora.utils.HttpClientUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -30,10 +29,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     //微信服务接口地址
     public static final String WX_LOGIN = "https://api.weixin.qq.com/sns/jscode2session";
 
-    @Autowired
-    private WeChatProperties weChatProperties;
-    @Autowired
-    private UserMapper userMapper;
+    private final WeChatProperties weChatProperties;
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(WeChatProperties weChatProperties, UserMapper userMapper) {
+        this.weChatProperties = weChatProperties;
+        this.userMapper = userMapper;
+    }
+
 
     public User wxLogin(UserLoginDTO userLoginDTO) {
         String openid = getOpenid(userLoginDTO.getCode());
@@ -62,9 +65,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     /**
      * 调用微信接口服务，获取微信用户的openid
-     *
-     * @param code
-     * @return
      */
     private String getOpenid(String code) {
         //调用微信接口服务，获得当前微信用户的openid
@@ -76,8 +76,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String json = HttpClientUtil.doGet(WX_LOGIN, map);
 
         JSONObject jsonObject = JSON.parseObject(json);
-        String openid = jsonObject.getString("openid");
-        return openid;
+
+        return jsonObject.getString("openid");
     }
 
 }

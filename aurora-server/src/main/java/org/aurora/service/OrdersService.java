@@ -50,5 +50,7 @@ public interface OrdersService extends IService<Orders> {
     List<Orders> getByStatusAndOrderTimeLT(Integer deliveryInProgress, LocalDateTime time);
 
     void reminder(Long id);
+
+    void paySuccess(String outTradeNo);
 }
 

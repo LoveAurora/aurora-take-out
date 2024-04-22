@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.aurora.result.Result;
 import org.aurora.utils.RedisCache;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 @RestController("adminShopController")
@@ -17,14 +16,15 @@ public class ShopController {
 
     public static final String KEY = "SHOP_STATUS";
 
+    private final RedisCache redisCache;
+
     @Autowired
-    private RedisCache redisCache;
+    public ShopController(RedisCache redisCache) {
+        this.redisCache = redisCache;
+    }
 
     /**
      * 设置店铺的营业状态
-     *
-     * @param status
-     * @return
      */
     @PutMapping("/{status}")
     @ApiOperation("设置店铺的营业状态")
@@ -36,8 +36,6 @@ public class ShopController {
 
     /**
      * 获取店铺的营业状态
-     *
-     * @return
      */
     @GetMapping("/status")
     @ApiOperation("获取店铺的营业状态")

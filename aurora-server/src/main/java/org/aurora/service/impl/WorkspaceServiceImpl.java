@@ -3,21 +3,15 @@ package org.aurora.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.aurora.constant.StatusConstant;
 import org.aurora.entity.Dish;
 import org.aurora.entity.Orders;
 import org.aurora.entity.Setmeal;
 import org.aurora.entity.User;
-import org.aurora.mapper.DishMapper;
-import org.aurora.mapper.OrdersMapper;
-import org.aurora.mapper.SetmealMapper;
-import org.aurora.mapper.UserMapper;
 import org.aurora.service.*;
 import org.aurora.vo.BusinessDataVO;
 import org.aurora.vo.DishOverViewVO;
 import org.aurora.vo.OrderOverViewVO;
 import org.aurora.vo.SetmealOverViewVO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -28,14 +22,18 @@ import java.util.List;
 @Slf4j
 public class WorkspaceServiceImpl implements WorkspaceService {
 
-    @Autowired
-    private OrdersService ordersService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private DishService dishService;
-    @Autowired
-    private SetmealService setmealService;
+    private final OrdersService ordersService;
+    private final UserService userService;
+    private final DishService dishService;
+    private final SetmealService setmealService;
+
+    public WorkspaceServiceImpl(OrdersService ordersService, UserService userService, DishService dishService, SetmealService setmealService) {
+        this.ordersService = ordersService;
+        this.userService = userService;
+        this.dishService = dishService;
+        this.setmealService = setmealService;
+    }
+
 
     /**
      * 根据时间段统计营业数据
@@ -85,8 +83,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     /**
      * 查询订单管理数据
-     *
-     * @return
      */
     public OrderOverViewVO getOrderOverView() {
         List<Orders> ordersList = ordersService.list();
@@ -115,8 +111,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     /**
      * 查询菜品总览
-     *
-     * @return
      */
     public DishOverViewVO getDishOverView() {
 
@@ -137,8 +131,6 @@ public class WorkspaceServiceImpl implements WorkspaceService {
 
     /**
      * 查询套餐总览
-     *
-     * @return
      */
     public SetmealOverViewVO getSetmealOverView() {
         List<Setmeal> setmeals = setmealService.list();

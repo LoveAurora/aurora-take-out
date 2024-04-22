@@ -44,9 +44,6 @@ public class EmployeeController {
 
     /**
      * 登录
-     *
-     * @param employeeLoginDTO
-     * @return
      */
     @PostMapping("/login")
     @ApiOperation("员工登录")
@@ -73,8 +70,6 @@ public class EmployeeController {
 
     /**
      * 退出
-     *
-     * @return
      */
     @PostMapping("/logout")
     public Result<String> logout() {
@@ -83,9 +78,6 @@ public class EmployeeController {
 
     /**
      * 修改密码
-     *
-     * @param passwordEditDTO
-     * @return
      */
     @PutMapping("/editPassword")
     @ApiOperation("修改密码")
@@ -97,9 +89,6 @@ public class EmployeeController {
 
     /**
      * 修改状态
-     *
-     * @param status
-     * @return
      */
     @PostMapping("/status/{status}")
     @ApiOperation("修改状态")
@@ -111,9 +100,6 @@ public class EmployeeController {
 
     /**
      * 分页查询
-     *
-     * @param employeePageQueryDTO
-     * @return
      */
     @GetMapping("/page")
     @ApiOperation("分页查询")
@@ -125,9 +111,6 @@ public class EmployeeController {
 
     /**
      * 添加员工
-     *
-     * @param employee
-     * @return
      */
 
     @PostMapping()
@@ -141,9 +124,6 @@ public class EmployeeController {
 
     /**
      * 查询员工
-     *
-     * @param id
-     * @return
      */
     @GetMapping("/{id}")
     @ApiOperation("查询员工")
@@ -158,9 +138,6 @@ public class EmployeeController {
 
     /**
      * 修改员工
-     *
-     * @param employeeDTO
-     * @return
      */
     @PutMapping()
     @ApiOperation("修改员工")

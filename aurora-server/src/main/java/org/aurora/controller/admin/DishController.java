@@ -31,6 +31,7 @@ import java.util.List;
 public class DishController {
     private final DishService dishService;
     private final RedisCache redisCache;
+
     // 构造器注入
     public DishController(DishService dishService, RedisCache redisCache) {
         this.dishService = dishService;
@@ -39,9 +40,6 @@ public class DishController {
 
     /**
      * 新增菜品
-     *
-     * @param dishDTO
-     * @return
      */
     @PostMapping
     @ApiOperation("新增菜品")
@@ -54,9 +52,6 @@ public class DishController {
 
     /**
      * 分页查询菜品
-     *
-     * @param dishPageQueryDTO
-     * @return
      */
     @GetMapping("/page")
     @ApiOperation("分页查询菜品")
@@ -68,9 +63,6 @@ public class DishController {
 
     /**
      * 批量删除菜品
-     *
-     * @param ids
-     * @return
      */
     @DeleteMapping()
     @ApiOperation("批量删除菜品")
@@ -84,9 +76,6 @@ public class DishController {
 
     /**
      * 根据id查询菜品
-     *
-     * @param id
-     * @return
      */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询菜品")
@@ -98,9 +87,6 @@ public class DishController {
 
     /**
      * 修改菜品
-     *
-     * @param dishDTO
-     * @return
      */
     @PutMapping
     @ApiOperation("修改菜品")
@@ -113,9 +99,6 @@ public class DishController {
 
     /**
      * 根据分类id查询菜品
-     *
-     * @param categoryId
-     * @return
      */
 
     @GetMapping("/list")
@@ -130,10 +113,6 @@ public class DishController {
 
     /**
      * 修改菜品状态
-     *
-     * @param status
-     * @param id
-     * @return
      */
     @PostMapping("/status/{status}")
     @ApiOperation("修改菜品状态")
