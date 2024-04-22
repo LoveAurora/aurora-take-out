@@ -11,7 +11,6 @@ import org.aurora.entity.Category;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.CategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,8 +24,11 @@ import java.util.List;
 @Slf4j
 public class CategoryController {
 
-    @Autowired
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
+    // 构造器注入
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
+    }
 
     /**
      * 新增分类

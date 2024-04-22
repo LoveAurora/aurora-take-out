@@ -32,10 +32,15 @@ import java.util.Objects;
 @Slf4j
 public class EmployeeController {
 
-    @Autowired
-    private EmployeeService employeeService;
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final EmployeeService employeeService;
+    private final JwtProperties jwtProperties;
+
+    // 构造器注入
+    public EmployeeController(JwtProperties jwtProperties, EmployeeService employeeService) {
+        this.jwtProperties = jwtProperties;
+        this.employeeService = employeeService;
+    }
+
 
     /**
      * 登录

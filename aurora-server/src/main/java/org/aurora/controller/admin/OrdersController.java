@@ -27,9 +27,12 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/admin/order/")
 public class OrdersController {
-
-    @Autowired
-    private OrdersService ordersService;
+   //TODO 订单菜品名 和 送达时间 未设置
+    private final OrdersService ordersService;
+    // 构造器注入
+    public OrdersController(OrdersService ordersService) {
+        this.ordersService = ordersService;
+    }
 
     /**
      * 订单搜索

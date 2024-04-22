@@ -29,11 +29,13 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/admin/dish")
 public class DishController {
-    @Autowired
-    private DishService dishService;
-
-    @Autowired
-    private RedisCache redisCache;
+    private final DishService dishService;
+    private final RedisCache redisCache;
+    // 构造器注入
+    public DishController(DishService dishService, RedisCache redisCache) {
+        this.dishService = dishService;
+        this.redisCache = redisCache;
+    }
 
     /**
      * 新增菜品

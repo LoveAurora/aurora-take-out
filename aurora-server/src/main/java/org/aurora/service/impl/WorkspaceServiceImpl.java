@@ -22,12 +22,9 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Service
+@Service("workspaceService")
 @Slf4j
 public class WorkspaceServiceImpl implements WorkspaceService {
 

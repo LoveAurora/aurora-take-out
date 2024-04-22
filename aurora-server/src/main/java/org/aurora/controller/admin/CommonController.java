@@ -21,9 +21,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Slf4j
 public class CommonController {
 
-    @Autowired
-    private UploadService uploadService;
+    private final UploadService uploadService;
 
+    @Autowired
+    public CommonController(UploadService uploadService) {
+        this.uploadService = uploadService;
+    }
 
     /**
      * 文件上传
