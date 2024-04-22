@@ -1,7 +1,6 @@
 package org.aurora.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
@@ -23,7 +22,6 @@ import org.aurora.service.ShoppingCartService;
 import org.aurora.service.UserService;
 import org.aurora.utils.BeanCopyUtils;
 import org.aurora.utils.GetDistance;
-import org.aurora.utils.HttpClientUtil;
 import org.aurora.utils.WeChatPayUtil;
 import org.aurora.vo.OrderPaymentVO;
 import org.aurora.vo.OrderStatisticsVO;
@@ -36,7 +34,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -56,17 +53,15 @@ public class OrdersServiceImpl extends ServiceImpl<OrdersMapper, Orders> impleme
     private final UserService userService;
     private final WeChatPayUtil weChatPayUtil;
     private final WebSocketServer webSocketServer;
-    private final ApplicationContext context;
 
     // 构造器注入
-    public OrdersServiceImpl(AddressBookService addressBookService, ShoppingCartService shoppingCartService, OrderDetailServiceImpl orderDetailService, UserService userService, WeChatPayUtil weChatPayUtil, WebSocketServer webSocketServer, ApplicationContext context) {
+    public OrdersServiceImpl(AddressBookService addressBookService, ShoppingCartService shoppingCartService, OrderDetailServiceImpl orderDetailService, UserService userService, WeChatPayUtil weChatPayUtil, WebSocketServer webSocketServer) {
         this.addressBookService = addressBookService;
         this.shoppingCartService = shoppingCartService;
         this.orderDetailService = orderDetailService;
         this.userService = userService;
         this.weChatPayUtil = weChatPayUtil;
         this.webSocketServer = webSocketServer;
-        this.context = context;
     }
 
     @Override

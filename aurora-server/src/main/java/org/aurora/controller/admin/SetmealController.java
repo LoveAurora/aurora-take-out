@@ -7,6 +7,8 @@ import org.aurora.dto.SetmealPageQueryDTO;
 import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.SetmealService;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,6 +36,7 @@ public class SetmealController {
      */
     @GetMapping("/page")
     @ApiOperation("分页查询套餐")
+//    @Cacheable(cacheNames = "pageQuery", key = "#setmealPageQueryDTO.page")
     public Result<PageResult> pageQuery(SetmealPageQueryDTO setmealPageQueryDTO) {
         log.info("分页查询套餐，参数：{}", setmealPageQueryDTO);
         PageResult pageResult = setmealService.pageQuery(setmealPageQueryDTO);
@@ -48,6 +51,7 @@ public class SetmealController {
      */
     @PutMapping
     @ApiOperation("修改套餐")
+    @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.id")
     public Result<String> updateMeal(@RequestBody SetmealDTO setmealDTO) {
         log.info("修改套餐，参数：{}", setmealDTO);
         setmealService.updateMeal(setmealDTO);
@@ -77,6 +81,7 @@ public class SetmealController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("修改套餐状态")
+    @CacheEvict(cacheNames = "setmealCache", key = "#id")
     public Result<String> updateStatus(@PathVariable Integer status, Long id) {
         log.info("修改套餐状态:{},{}", status, id);
         setmealService.updateStatus(status, id);
@@ -91,6 +96,7 @@ public class SetmealController {
      */
     @DeleteMapping
     @ApiOperation("批量删除套餐")
+    @CacheEvict(cacheNames = "setmealCache",  allEntries = true)
     public Result<String> deleteMeals(@RequestParam List<Long> ids) {
         log.info("批量删除套餐，参数：{}", ids);
         setmealService.deleteMeals(ids);

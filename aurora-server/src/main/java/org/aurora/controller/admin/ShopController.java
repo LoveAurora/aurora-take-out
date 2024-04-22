@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 public class ShopController {
 
-    public static final String KEY = "SHOP_STATUS";
+    public static final String KEY = "shop:status";
 
     private final RedisCache redisCache;
 

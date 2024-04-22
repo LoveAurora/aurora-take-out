@@ -11,6 +11,7 @@ import org.aurora.result.Result;
 import org.aurora.service.OrdersService;
 import org.aurora.vo.OrderStatisticsVO;
 import org.aurora.vo.OrderVO;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/admin/order/")
 public class OrdersController {
-    //TODO 订单菜品名 和 送达时间 未设置
     private final OrdersService ordersService;
 
     // 构造器注入
@@ -55,7 +55,7 @@ public class OrdersController {
      * 订单详情
      */
     @GetMapping("/details/{id}")
-    @ApiOperation("查询订单详情")
+    @Cacheable(cacheNames = "orderDetails", key = "#id")
     public Result<OrderVO> details(@PathVariable("id") Long id) {
         OrderVO orderVO = ordersService.details(id);
         return Result.success(orderVO);
