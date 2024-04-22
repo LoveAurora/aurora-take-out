@@ -11,6 +11,7 @@ import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.DishService;
 import org.aurora.utils.RedisCache;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,6 +65,7 @@ public class DishController {
      */
     @DeleteMapping()
     @ApiOperation("批量删除菜品")
+    @CacheEvict(value = "dishCache", allEntries = true)
     public Result<String> deleteDish(@RequestParam List<Long> ids) {
         log.info("批量删除菜品:{}", ids);
         dishService.deleteDish(ids);
@@ -88,6 +90,7 @@ public class DishController {
      */
     @PutMapping
     @ApiOperation("修改菜品")
+    @CacheEvict(value = "dishCache", allEntries = true)
     public Result<String> updateDish(@RequestBody DishDTO dishDTO) {
         log.info("修改菜品:{}", dishDTO);
         dishService.updateDish(dishDTO);
@@ -115,6 +118,7 @@ public class DishController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("修改菜品状态")
+    @CacheEvict(value = "dishCache", allEntries = true)
     public Result<String> updateStatus(@PathVariable("status") Integer status, Long id) {
         log.info("修改菜品状态:{},{}", status, id);
         dishService.updateStatus(status, id);

@@ -8,7 +8,6 @@ import org.aurora.result.PageResult;
 import org.aurora.result.Result;
 import org.aurora.service.SetmealService;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,7 +50,7 @@ public class SetmealController {
      */
     @PutMapping
     @ApiOperation("修改套餐")
-    @CacheEvict(cacheNames = "setmealCache", key = "#setmealDTO.id")
+    @CacheEvict(cacheNames = "setmealCache", allEntries = true)
     public Result<String> updateMeal(@RequestBody SetmealDTO setmealDTO) {
         log.info("修改套餐，参数：{}", setmealDTO);
         setmealService.updateMeal(setmealDTO);
@@ -81,7 +80,7 @@ public class SetmealController {
      */
     @PostMapping("/status/{status}")
     @ApiOperation("修改套餐状态")
-    @CacheEvict(cacheNames = "setmealCache", key = "#id")
+    @CacheEvict(cacheNames = "setmealCache", allEntries = true)
     public Result<String> updateStatus(@PathVariable Integer status, Long id) {
         log.info("修改套餐状态:{},{}", status, id);
         setmealService.updateStatus(status, id);
