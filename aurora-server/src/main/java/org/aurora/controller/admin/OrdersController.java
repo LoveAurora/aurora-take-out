@@ -1,7 +1,9 @@
 package org.aurora.controller.admin;
 
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.aurora.dto.OrdersCancelDTO;
 import org.aurora.dto.OrdersConfirmDTO;
 import org.aurora.dto.OrdersPageQueryDTO;
@@ -23,6 +25,8 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/admin/order/")
+@Slf4j
+@Api(tags = "订单相关接口")
 public class OrdersController {
     private final OrdersService ordersService;
 

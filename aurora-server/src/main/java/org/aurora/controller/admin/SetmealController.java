@@ -1,5 +1,6 @@
 package org.aurora.controller.admin;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.dto.SetmealDTO;
@@ -18,6 +19,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/admin/setmeal")
+@Api(tags = "套餐相关接口")
 public class SetmealController {
 
     // 自动注入SetmealService

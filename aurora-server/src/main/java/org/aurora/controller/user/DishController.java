@@ -23,6 +23,7 @@ import java.util.List;
 @RestController("userDishController")
 @Slf4j
 @RequestMapping("/user/dish")
+@ApiOperation("C端-菜品接口")
 public class DishController {
     private final DishService dishService;
     private final RedisCache redisCache;

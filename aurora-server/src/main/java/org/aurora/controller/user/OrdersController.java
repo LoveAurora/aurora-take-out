@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController("userOrdersController")
 @RequestMapping("/user/order")
-@Api(tags = "用户端订单相关接口")
+@Api(tags = "C端-订单相关接口")
 @Slf4j
 public class OrdersController {
 

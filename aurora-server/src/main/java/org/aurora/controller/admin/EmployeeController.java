@@ -1,5 +1,6 @@
 package org.aurora.controller.admin;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.constant.JwtClaimsConstant;
@@ -30,6 +31,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/admin/employee")
 @Slf4j
+@Api(tags = "员工管理相关接口")
 public class EmployeeController {
 
     private final EmployeeService employeeService;

@@ -2,6 +2,7 @@ package org.aurora.controller.admin;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.dto.DishDTO;
@@ -27,6 +28,7 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/admin/dish")
+@Api(tags = "菜品相关接口")
 public class DishController {
     private final DishService dishService;
     private final RedisCache redisCache;

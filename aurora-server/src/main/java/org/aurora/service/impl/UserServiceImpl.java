@@ -28,7 +28,6 @@ import java.util.Map;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     //微信服务接口地址
     public static final String WX_LOGIN = "https://api.weixin.qq.com/sns/jscode2session";
-
     private final WeChatProperties weChatProperties;
     private final UserMapper userMapper;
 
