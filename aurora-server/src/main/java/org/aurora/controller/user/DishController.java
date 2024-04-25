@@ -1,6 +1,7 @@
 package org.aurora.controller.user;
 
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.aurora.result.Result;
@@ -23,7 +24,7 @@ import java.util.List;
 @RestController("userDishController")
 @Slf4j
 @RequestMapping("/user/dish")
-@ApiOperation("C端-菜品接口")
+@Api("C端-菜品接口")
 public class DishController {
     private final DishService dishService;
     private final RedisCache redisCache;
